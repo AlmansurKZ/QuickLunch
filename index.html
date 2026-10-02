@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickLunch — заказ еды</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <div class="logo">
+            🍴 QuickLunch
+        </div>
+
+        <nav>
+            <a href="#home">Главная</a>
+            <a href="#menu">Меню</a>
+            <a href="#orders">Заказы</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#metrics">Метрики</a>
+        </nav>
+
+        <button class="cart-button" onclick="openCart()">
+            🛒 Корзина
+            <span id="cartCount">0</span>
+        </button>
+
+    </div>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <span class="badge">
+                🍽️ Быстро • Вкусно • Удобно
+            </span>
+
+            <h1>
+                Заказывай любимую еду
+                <span>заранее</span>
+            </h1>
+
+            <p>
+                Выбирай блюда, добавляй их в корзину
+                и забирай заказ без долгого ожидания.
+            </p>
+
+            <button class="main-button" onclick="scrollToMenu()">
+                Смотреть меню →
+            </button>
+
+        </div>
+
+        <div class="hero-food">
+            🍔
+
+            <span>🍕</span>
+            <span>🍣</span>
+            <span>🍲</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ПРЕИМУЩЕСТВА -->
+
+<section class="advantages">
+
+    <div class="container advantages-grid">
+
+        <div class="advantage">
+            <div class="advantage-icon">⚡</div>
+
+            <div>
+                <h3>Быстрый заказ</h3>
+                <p>Можно заказать еду заранее.</p>
+            </div>
+        </div>
+
+        <div class="advantage">
+            <div class="advantage-icon">🍽️</div>
+
+            <div>
+                <h3>Большое меню</h3>
+                <p>Бургеры, пицца, супы и горячие блюда.</p>
+            </div>
+        </div>
+
+        <div class="advantage">
+            <div class="advantage-icon">❤️</div>
+
+            <div>
+                <h3>Избранное</h3>
+                <p>Любимые блюда всегда будут сверху.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- МЕНЮ -->
+
+<section class="menu-section" id="menu">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>НАШЕ МЕНЮ</span>
+
+            <h2>
+                Выбери что-нибудь вкусное
+            </h2>
+
+            <p>
+                Любимые блюда можно добавить в избранное.
+            </p>
+
+        </div>
+
+
+        <!-- ПОИСК -->
+
+        <div class="search-box">
+
+            🔎
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Поиск блюда..."
+                oninput="searchFood()"
+            >
+
+        </div>
+
+
+        <!-- КАТЕГОРИИ -->
+
+        <div class="categories">
+
+            <button
+                class="category active"
+                onclick="filterMenu('all', this)"
+            >
+                Всё
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('favorites', this)"
+            >
+                ❤️ Избранное
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('burger', this)"
+            >
+                🍔 Бургеры
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('pizza', this)"
+            >
+                🍕 Пицца
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('sushi', this)"
+            >
+                🍣 Суши
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('salad', this)"
+            >
+                🥗 Салаты
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('soup', this)"
+            >
+                🍲 Супы
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('hot', this)"
+            >
+                🍗 Горячее
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('pasta', this)"
+            >
+                🍝 Паста
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('dessert', this)"
+            >
+                🍰 Десерты
+            </button>
+
+            <button
+                class="category"
+                onclick="filterMenu('drink', this)"
+            >
+                🥤 Напитки
+            </button>
+
+        </div>
+
+
+        <!-- МЕНЮ -->
+
+        <div id="menuList" class="menu-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- КОРЗИНА -->
+
+<section class="cart-section">
+
+    <div class="container">
+
+        <div class="cart-preview">
+
+            <div>
+
+                <span>ВАША КОРЗИНА</span>
+
+                <h2>
+                    Готовы оформить заказ?
+                </h2>
+
+                <p id="cartPreviewText">
+                    Пока в корзине ничего нет.
+                </p>
+
+            </div>
+
+            <button
+                class="main-button"
+                onclick="openCart()"
+            >
+                Открыть корзину 🛒
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ИСТОРИЯ -->
+
+<section class="orders-section" id="orders">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>ИСТОРИЯ</span>
+
+            <h2>
+                Мои заказы
+            </h2>
+
+            <p>
+                Здесь сохраняются предыдущие заказы.
+            </p>
+
+        </div>
+
+        <div id="historyList" class="history-list"></div>
+
+        <button
+            class="clear-button"
+            onclick="clearHistory()"
+        >
+            Очистить историю
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ОТЗЫВЫ -->
+
+<section class="reviews-section" id="reviews">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>ОТЗЫВЫ</span>
+
+            <h2>
+                Что говорят пользователи
+            </h2>
+
+            <p>
+                Оставьте свой отзыв после заказа.
+            </p>
+
+        </div>
+
+        <div id="reviewsList" class="reviews-list"></div>
+
+
+        <div class="review-form">
+
+            <h3>
+                Оставить отзыв
+            </h3>
+
+            <input
+                type="text"
+                id="reviewName"
+                placeholder="Ваше имя"
+            >
+
+            <select id="reviewRating">
+
+                <option value="5">
+                    ★★★★★ — 5 звёзд
+                </option>
+
+                <option value="4">
+                    ★★★★☆ — 4 звезды
+                </option>
+
+                <option value="3">
+                    ★★★☆☆ — 3 звезды
+                </option>
+
+                <option value="2">
+                    ★★☆☆☆ — 2 звезды
+                </option>
+
+                <option value="1">
+                    ★☆☆☆☆ — 1 звезда
+                </option>
+
+            </select>
+
+            <textarea
+                id="reviewText"
+                placeholder="Напишите ваш отзыв..."
+            ></textarea>
+
+            <button
+                class="main-button"
+                onclick="addReview()"
+            >
+                Опубликовать отзыв
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- МЕТРИКИ -->
+
+<section class="metrics-section" id="metrics">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>АНАЛИТИКА ПРОЕКТА</span>
+
+            <h2>
+                CTR и UTM-метки
+            </h2>
+
+            <p>
+                Пример маркетинговых метрик для QuickLunch.
+            </p>
+
+        </div>
+
+
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+
+                <div class="metric-icon">
+                    📊
+                </div>
+
+                <h3>
+                    CTR
+                </h3>
+
+                <div class="metric-number">
+                    12%
+                </div>
+
+                <p>
+                    Пример: 120 кликов
+                    из 1000 показов.
+                </p>
+
+                <div class="formula">
+                    CTR = (клики / показы) × 100%
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon">
+                    🔗
+                </div>
+
+                <h3>
+                    UTM-метки
+                </h3>
+
+                <p>
+                    Используются для определения
+                    источника перехода на сайт.
+                </p>
+
+                <code>
+                    utm_source=instagram
+                </code>
+
+                <code>
+                    utm_medium=social
+                </code>
+
+                <code>
+                    utm_campaign=quicklunch
+                </code>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Цель
+                </h3>
+
+                <p>
+                    Понять, откуда пользователи
+                    приходят на QuickLunch
+                    и какие рекламные каналы
+                    дают переходы.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="utm-example">
+
+            <h3>
+                Пример UTM-ссылки
+            </h3>
+
+            <p>
+                Instagram:
+            </p>
+
+            <div class="utm-link">
+                quicklunch.kz/?utm_source=instagram&utm_medium=social&utm_campaign=quicklunch&utm_content=burger
+            </div>
+
+            <p>
+                TikTok:
+            </p>
+
+            <div class="utm-link">
+                quicklunch.kz/?utm_source=tiktok&utm_medium=social&utm_campaign=quicklunch&utm_content=pizza
+            </div>
+
+            <p>
+                QR-код в колледже:
+            </p>
+
+            <div class="utm-link">
+                quicklunch.kz/?utm_source=college&utm_medium=qr&utm_campaign=quicklunch
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div>
+
+            <h2>
+                🍴 QuickLunch
+            </h2>
+
+            <p>
+                Еда без долгого ожидания.
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 QuickLunch
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- КОРЗИНА -->
+
+<div
+    class="modal"
+    id="cartModal"
+>
+
+    <div class="modal-content">
+
+        <button
+            class="close-button"
+            onclick="closeCart()"
+        >
+            ×
+        </button>
+
+        <h2>
+            🛒 Ваша корзина
+        </h2>
+
+        <div id="cartItems"></div>
+
+        <div class="cart-total">
+
+            <span>
+                Итого:
+            </span>
+
+            <strong id="cartTotal">
+                0 ₸
+            </strong>
+
+        </div>
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Ваше имя"
+        >
+
+        <button
+            class="main-button full-button"
+            onclick="confirmOrder()"
+        >
+            Оформить заказ
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
